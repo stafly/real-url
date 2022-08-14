@@ -37,14 +37,15 @@ def live(e):
         ms = hashlib.md5(ll.encode("utf-8")).hexdigest()
         h = '_'.join([p, t, s, ms, l])
         m = hashlib.md5(h.encode('utf-8')).hexdigest()
-        urls = "{}?wsSecret={}&wsTime={}&seqid={}&ctype={}&ver=1&txyp={}&fs={}&&sphdcdn={}&sphdDC={}&sphd={}&t=103&ratio=2000&u={}&t=103&sv=2110211124".format(i, m, l, mm, ml, mt, fs, sp, spp, spd, t)
+        urls = "{}?wsSecret={}&wsTime={}&seqid={}&ctype={}&ver=1&txyp={}&fs={}&&sphdcdn={}&sphdDC={}&sphd={}&t=103&ratio=4000&u={}&t=103&sv=2110211124".format(i, m, l, mm, ml, mt, fs, sp, spp, spd, t)
         aa, ab = urls.split('//')
         url = 'https://'+ab
+       
         return url
     except Exception as e: 
         return ''
 
-
+#https://al.flv.huya.com/huyalive/1099531728510-1099531728510-86331995155595264-2199063580476-10057-A-0-1.flv?wsSecret=33c2958e1963b5b4e143d7631cf231d4&wsTime=62fa2097&u=0&seqid=16604731186498736&txyp=o:d3;&fs=bgct&sphdcdn=&sphdDC=&sphd=&u=0&t=100&sv=
 def get_real_url(room_id):
     room_url = 'https://mp.huya.com/cache.php?m=Live&do=profileRoom&roomid=' + str(room_id)
     
@@ -78,4 +79,3 @@ if __name__ == '__main__':
         print(get_real_url(r))
     except Exception as e:
         print(e)    
-        
