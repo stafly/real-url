@@ -45,7 +45,7 @@ def live(e):
     except Exception as e: 
         return ''
 
-#https://al.flv.huya.com/huyalive/1099531728510-1099531728510-86331995155595264-2199063580476-10057-A-0-1.flv?wsSecret=33c2958e1963b5b4e143d7631cf231d4&wsTime=62fa2097&u=0&seqid=16604731186498736&txyp=o:d3;&fs=bgct&sphdcdn=&sphdDC=&sphd=&u=0&t=100&sv=
+
 def get_real_url(room_id):
     room_url = 'https://mp.huya.com/cache.php?m=Live&do=profileRoom&roomid=' + str(room_id)
     

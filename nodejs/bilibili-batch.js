@@ -18,7 +18,7 @@ async function getRoomRealId(rid) {
   const url = `https://api.live.bilibili.com/room/v1/Room/room_init?id=${rid}`;
   const res = await fireFetch(url, {}, true);
   if (res.code !== 0) {
-    console.log(rid, res.msg);
+   // console.log(rid, res.msg);
     return rid;
   }
 
@@ -52,6 +52,7 @@ async function getRoomLiveUrl(rid, currentQn = 10000) {
         platform: "h5",
         ptype: 8,
       };
+
     const res = await fireFetch(url + genUrlSearch(param), {}, true);
     if (res.code !== 0) {
       console.log(rid, res.msg, "获取房间直播信息失败");
@@ -91,7 +92,8 @@ async function getRoomLiveUrl(rid, currentQn = 10000) {
         const info = url_info[j],
           host = info["host"],
           extra = info["extra"],
-          extraObj = parseUrlSearch("?" + extra.substring(1));
+          extraObj = parseUrlSearch("?" + extra.substring(0)),
+          url = host+base_url.split("?").shift();
         const signs = genUrlSearch(
           {
             sign: extraObj.sign,
@@ -100,8 +102,8 @@ async function getRoomLiveUrl(rid, currentQn = 10000) {
           true
         );
         streamUrls[`url${j + 1}`] = host.includes("https://cn-")
-          ? `${host}${base_url.split("?").shift()}`
-          : `${host}${base_url}?${genUrlSearch(extraObj)}`;
+          ? url
+          : `${url}${genUrlSearch(extraObj)}`;
       }
     }
   }
@@ -123,10 +125,6 @@ async function getUserInfo(uid) {
   );
   return res.code === 0 ? res.data || {} : {};
 }
-//测试单个live url，
-/* getRoomLiveUrl(10375360).then((res) => {
-  console.log(res);
-});*/
 
 //批量
 const BILI_ROOM_IDS = [22621344, 23150921, 21715386, 23169468, 23285297];
@@ -161,9 +159,12 @@ const getYygRooms = async () => {
 
   return rooms;
 };
-
+//测试单个live url，
+/*getRoomLiveUrl(10375360).then((res) => {
+  console.log(res);
+});*/
 (async () => {
-
+  
   const jsonList = [],
     rooms = await getYygRooms();
   for (let i = 0; i < rooms.length; i++) {
@@ -195,7 +196,10 @@ const getYygRooms = async () => {
     const obj = jsonList[i],
       url = obj["url2"] || obj["url1"];
     if (url) {
-      m3u_list.push(`#EXTINF:-1 group-title="B站" tvg-id="${obj.room_id}", ${obj.name}`, url);
+      m3u_list.push(
+        `#EXTINF:-1 group-title="B站" tvg-id="${obj.room_id}", ${obj.name}`,
+        url
+      );
     }
   }
   fs.writeFileSync(
