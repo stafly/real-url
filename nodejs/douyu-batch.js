@@ -137,11 +137,13 @@ const getRoomLiveUrls = async (rid) => {
   }
   let real_url = { room_id: rid };
   if (prevInfo.key) {
-    const domain = DOMAINS[0];
+    const domain = DOMAINS[0],
+    //默认最高码率
+    key=prevInfo.key?.replace('_900','');
 
-    real_url["m3u8"] = `https://${domain}/live/${prevInfo.key}.m3u8`;
-    real_url["flv"] = `https://${domain}/live/${prevInfo.key}.flv`;
-    real_url["x-p2p"] = `https://${domain}/live/${prevInfo.key}.xs`;
+    real_url["m3u8"] = `https://${domain}/live/${key}.m3u8`;
+    real_url["flv"] = `https://${domain}/live/${key}.flv`;
+    real_url["x-p2p"] = `https://${domain}/live/${key}.xs`;
   }
   return real_url;
 };

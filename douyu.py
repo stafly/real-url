@@ -127,7 +127,10 @@ class DouYu:
             raise Exception('房间未开播')
         else:
             key = self.get_js()
+            
+        # 若key后缀存在_900等码率参数，可自行去掉
         real_url = {}
+        real_url["m3u8"] = "http://hdltctwk.douyucdn2.cn/live/{}.m3u8?uuid=".format(key)
         real_url["flv"] = "http://hdltctwk.douyucdn2.cn/live/{}.flv?uuid=".format(key)
         real_url["x-p2p"] = "http://hdltctwk.douyucdn2.cn/live/{}.xs?uuid=".format(key)
         room_name=''#s.get_room_info()
