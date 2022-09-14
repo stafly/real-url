@@ -1,3 +1,12 @@
+/*
+ * @Author: moxun33
+ * @Date: 2022-09-08 21:20:23
+ * @LastEditors: moxun33
+ * @LastEditTime: 2022-09-14 21:03:02
+ * @FilePath: \real-url\nodejs\danmu\douyu\index.js
+ * @Description:
+ * @qmj
+ */
 /**
  * Created by xun on  2022/5/7 9:33.
  * description: index
@@ -27,7 +36,7 @@ room.on("error", function (err) {
 
 //消息事件
 room.on("chatmsg", function (res) {
-  //console.log("[ res ] >", JSON.stringify(res));
+  console.log("[ res ] >", JSON.stringify(res));
   console.log("[chatmsg]", ` [${res.nn}] ${res.txt}`);
 });
 room.on("loginres", function (res) {
